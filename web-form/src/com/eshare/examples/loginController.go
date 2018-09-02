@@ -2,10 +2,12 @@ package main
 
 import (
 	"fmt"
-	"html/template"
 	"log"
 	"net/http"
+	"text/template"
 )
+
+const TEMPLATE_DIR string = "D:/Repository/eshare-golang-learning/web-form/src/com/eshare/examples/static/"
 
 func main() {
 	http.HandleFunc("/", index)
@@ -20,8 +22,9 @@ func login(writer http.ResponseWriter, request *http.Request) {
 	println("request method:", request.Method)
 
 	if "GET" == request.Method {
-		template, _ := template.ParseFiles("login.html")
-		template.Execute(writer, nil)
+		template, _ := template.ParseFiles(TEMPLATE_DIR + "/login.html")
+		//template.Execute(writer, nil)
+		log.Println(template.Execute(writer, nil))
 	} else {
 		println("username:", request.Form["username"])
 		println("password:", request.Form["password"])
